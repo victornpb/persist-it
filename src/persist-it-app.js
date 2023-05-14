@@ -1,6 +1,6 @@
 import * as nodePath from 'path';
 import { getPackageSync } from './utils/getPkg';
-import { AppDirs } from './utils/dirs';
+import { userDataDir, siteDataDir } from './utils/dirs';
 import findRoot  from './utils/findRoot';
 import PersistIt from './persist-it';
 import defaults from 'default-args';
@@ -57,10 +57,8 @@ export default class PersistItApp extends PersistIt {
             
             const appVersion = options.appVersion ?? (pkg && pkg.version && `v${pkg.version.split('.')[0]}`);
             if (appVersion && typeof appVersion !== 'string') throw new Error('Invalid appVersion. Please provide a valid string value for appVersion when the directory is set to "user" or "shared", or enable reading the version from package.json using the readPackageJson:true option.');            
-
-            const dirs = new AppDirs(appName, appAuthor, appVersion);
-            if (options.directory === 'user') path = dirs.userDataDir();
-            if (options.directory === 'shared') path = dirs.siteDataDir();
+            if (options.directory === 'user') path = userDataDir(appName, appAuthor, appVersion);
+            if (options.directory === 'shared') path = siteDataDir(appName, appAuthor, appVersion);
             path = nodePath.join(path, options.folder);
         }
 
