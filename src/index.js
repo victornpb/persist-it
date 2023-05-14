@@ -1,3 +1,5 @@
+import { DEBUG, PREFIX, setDebug } from './utils/flags';
+
 // General storage
 import PersistIt from './persist-it';
 export { PersistIt };
@@ -8,3 +10,5 @@ export { PersistItApp };
 
 // Singleton instance
 export const persistIt = new PersistItApp();
+
+export { setDebug };

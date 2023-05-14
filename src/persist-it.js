@@ -4,8 +4,7 @@ import path from 'path';
 import getVal from './utils/get';
 import setVal from './utils/set';
 
-const DEBUG = true;
-const PREFIX = '[persist-it]';
+import { DEBUG, PREFIX } from './utils/flags';
 
 export default class PersistItDiskStorage {
   #flushing = false;
@@ -38,7 +37,7 @@ export default class PersistItDiskStorage {
     const ls = fs.readdirSync(this.directory);
     for (const file of ls) {
       const n = path.parse(file);
-      if (/^_([a-zA-Z0-9-_%]+)\.json$/.test(n.base)) {
+      if (FILENAME_PATTERN.test(n.base)) {
         const key = unescapeFilename(n.base);
         this.getSync(key);
       }
@@ -47,13 +46,13 @@ export default class PersistItDiskStorage {
   }
 
   async get(key) {
-    if (DEBUG) console.log(PREFIX, 'get');
+    if (DEBUG) console.log(PREFIX, 'get', key);
     if (this.cache.has(key)) {
-      if (DEBUG) console.log(PREFIX, 'cache read');
+      if (DEBUG) console.log(PREFIX, 'cache read', key);
       return this.cache.get(key);
     }
     try {
-      if (DEBUG) console.log(PREFIX, 'disk read');
+      if (DEBUG) console.log(PREFIX, 'DISK READ');
       const data = await fs.promises.readFile(path.join(this.directory, escapeFilename(key)), 'utf8');
       const value = deserialize(data.toString());
       this.cache.set(key, value);
@@ -64,27 +63,27 @@ export default class PersistItDiskStorage {
   }
 
   async set(key, value) {
-    if (DEBUG) console.log(PREFIX, 'set');
+    if (DEBUG) console.log(PREFIX, 'set', key, value);
     this.cache.set(key, value);
     this.writeQueue.set(key, value);
     this.flush();
   }
 
   async delete(key) {
-    if (DEBUG) console.log(PREFIX, 'delete');
+    if (DEBUG) console.log(PREFIX, 'delete', key);
     this.cache.delete(key);
     this.writeQueue.set(key, undefined);
     await this.flush();
   }
-  
+
   async getValue(key, path, defaultValue) {
-    if (DEBUG) console.log(PREFIX, 'getVal');
+    if (DEBUG) console.log(PREFIX, 'getVal', key, path, defaultValue);
     const object = await this.get(key);
     return getVal(object, path, defaultValue);
   }
-  
+
   async setValue(key, path, value) {
-    if (DEBUG) console.log(PREFIX, 'setVal');
+    if (DEBUG) console.log(PREFIX, 'setVal', key, path, value);
     const object = await this.get(key) || {};
     setVal(object, path, value);
     await this.set(key, object);
@@ -96,10 +95,10 @@ export default class PersistItDiskStorage {
       await waitNextTick();
       for (const [key, value] of this.writeQueue) {
         if (value === undefined) {
-          if (DEBUG) console.log(PREFIX, 'disk erase');
+          if (DEBUG) console.log(PREFIX, 'DISK ERASE', key);
           await fs.promises.unlink(path.join(this.directory, escapeFilename(key)));
         } else {
-          if (DEBUG) console.log(PREFIX, 'disk write');
+          if (DEBUG) console.log(PREFIX, 'DISK WRITE', key);
           const string = serialize(value);
           const filePath = path.join(this.directory, escapeFilename(key));
           await fs.promises.writeFile(filePath, string, 'utf8');
@@ -113,13 +112,13 @@ export default class PersistItDiskStorage {
   // Sync methods
 
   getSync(key) {
-    if (DEBUG) console.log(PREFIX, 'get sync');
+    if (DEBUG) console.log(PREFIX, 'get sync', key);
     if (this.cache.has(key)) {
       if (DEBUG) console.log(PREFIX, 'cache read sync');
       return this.cache.get(key);
     }
     try {
-      if (DEBUG) console.log(PREFIX, 'disk read sync');
+      if (DEBUG) console.log(PREFIX, 'DISK READ sync', key);
       const data = fs.readFileSync(path.join(this.directory, escapeFilename(key)), 'utf8');
       const value = deserialize(data.toString());
       this.cache.set(key, value);
@@ -130,39 +129,39 @@ export default class PersistItDiskStorage {
   }
 
   setSync(key, value) {
-    if (DEBUG) console.log(PREFIX, 'set sync');
+    if (DEBUG) console.log(PREFIX, 'set sync', key, value);
     this.cache.set(key, value);
     this.writeQueue.set(key, value);
     this.flushSync();
   }
-  
+
   deleteSync(key) {
-    if (DEBUG) console.log(PREFIX, 'delete sync');
+    if (DEBUG) console.log(PREFIX, 'delete sync', key);
     this.cache.delete(key);
     this.writeQueue.set(key, null);
     this.flushSync();
   }
-  
+
   getValueSync(key, path) {
-    if (DEBUG) console.log(PREFIX, 'getVal sync');
+    if (DEBUG) console.log(PREFIX, 'getVal sync', key, path);
     const object = this.getSync(key);
     return getVal(object, path, null);
   }
-  
+
   setValueSync(key, path, value) {
-    if (DEBUG) console.log(PREFIX, 'setVal sync');
+    if (DEBUG) console.log(PREFIX, 'setVal sync', key, path, value);
     const object = this.getSync(key) || {};
-    setVal(object,path, value);
+    setVal(object, path, value);
     this.setSync(key, object);
   }
 
   flushSync() {
     for (const [key, value] of this.writeQueue) {
       if (value === null) {
-        if (DEBUG) console.log(PREFIX, 'disk erase sync');
+        if (DEBUG) console.log(PREFIX, 'DISK ERASE sync', key);
         fs.unlinkSync(path.join(this.directory, escapeFilename(key)));
       } else {
-        if (DEBUG) console.log(PREFIX, 'disk write sync');
+        if (DEBUG) console.log(PREFIX, 'DISK WRITE sync',);
         const string = serialize(value);
         const filePath = path.join(this.directory, escapeFilename(key));
         fs.writeFileSync(filePath, string, 'utf8');

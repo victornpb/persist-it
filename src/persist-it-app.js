@@ -1,9 +1,10 @@
+import defaults from 'default-args';
 import * as nodePath from 'path';
+import { DEBUG, PREFIX } from './utils/flags';
+import findRoot from './utils/findRoot';
 import { getPackageSync } from './utils/getPkg';
 import { userDataDir, siteDataDir } from './utils/dirs';
-import findRoot from './utils/findRoot';
 import PersistIt from './persist-it';
-import defaults from 'default-args';
 
 export default class PersistItApp extends PersistIt {
 
