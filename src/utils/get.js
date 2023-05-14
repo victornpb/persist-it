@@ -1,7 +1,7 @@
  /**
  * Access a deep value inside an object 
  * Works by passing a path like "foo.bar", also works with nested arrays like "foo[0][1].baz"
- * @author Victor B. https://gist.github.com/victornpb/4c7882c1b9d36292308e
+ * @author victornpb https://gist.github.com/victornpb/4c7882c1b9d36292308e
  * Unit tests: http://jsfiddle.net/Victornpb/0u1qygrh/
  * @param {any} object Any object
  * @param {string} path Property path to access e.g.: "foo.bar[0].baz.1.a.b"

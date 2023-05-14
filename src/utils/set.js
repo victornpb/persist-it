@@ -3,7 +3,7 @@
  * @param  {object}   obj  A object
  * @param  {String}   path A path
  * @param  {Any}      val  Anything that can be set
- * @author Victor B. https://gist.github.com/victornpb/4c7882c1b9d36292308e
+ * @author victornpb https://gist.github.com/victornpb/4c7882c1b9d36292308e
  */
 export default function setDeepVal(obj, path, val) {
     var props = path.split('.');
