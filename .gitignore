@@ -2,7 +2,7 @@
 # Project Specific GitIgnore
 ###############################################################################
 
-#.foobar
+.data/
 
 
 ###############################################################################
@@ -315,7 +315,8 @@ GitHub.sublime-settings
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*

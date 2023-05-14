@@ -1,22 +1,22 @@
-# foo-bar
+# persist-it
 <!-- badge -->
-[![LICENSE](https://img.shields.io/github/license/username/foo-bar?style=flat-square)](LICENSE)
-[![Node](https://img.shields.io/node/v/foo-bar.svg?style=flat-square)](package.json)
-[![CodeFactor](https://www.codefactor.io/repository/github/username/foo-bar/badge?style=flat-square)](https://www.codefactor.io/repository/github/username/foo-bar)
+[![LICENSE](https://img.shields.io/github/license/victornpb/persist-it?style=flat-square)](LICENSE)
+[![Node](https://img.shields.io/node/v/persist-it.svg?style=flat-square)](package.json)
+[![CodeFactor](https://www.codefactor.io/repository/github/victornpb/persist-it/badge?style=flat-square)](https://www.codefactor.io/repository/github/victornpb/persist-it)
 
-[![Coverage Status](https://img.shields.io/coveralls/username/foo-bar.svg?style=flat-square)](https://coveralls.io/github/username/foo-bar)
-![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/username/foo-bar?style=flat-square)
+[![Coverage Status](https://img.shields.io/coveralls/victornpb/persist-it.svg?style=flat-square)](https://coveralls.io/github/victornpb/persist-it)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/victornpb/persist-it?style=flat-square)
 
-[![Version](https://img.shields.io/npm/v/foo-bar.svg?style=flat-square)](https://www.npmjs.com/package/foo-bar)
-[![Downloads](https://img.shields.io/npm/dt/foo-bar.svg?style=flat-square)](https://www.npmjs.com/package/foo-bar)
-[![](https://img.shields.io/bundlephobia/minzip/foo-bar?style=flat-square)](https://www.npmjs.com/package/foo-bar)
-[![](https://img.shields.io/tokei/lines/github/username/foo-bar?style=flat-square)](https://www.npmjs.com/package/foo-bar)
+[![Version](https://img.shields.io/npm/v/persist-it.svg?style=flat-square)](https://www.npmjs.com/package/persist-it)
+[![Downloads](https://img.shields.io/npm/dt/persist-it.svg?style=flat-square)](https://www.npmjs.com/package/persist-it)
+[![](https://img.shields.io/bundlephobia/minzip/persist-it?style=flat-square)](https://www.npmjs.com/package/persist-it)
+[![](https://img.shields.io/tokei/lines/github/victornpb/persist-it?style=flat-square)](https://www.npmjs.com/package/persist-it)
 
-[![GitHub Stars](https://img.shields.io/github/stars/username/foo-bar?style=flat-square)](https://github.com/username/foo-bar/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/username/foo-bar?style=flat-square)](https://github.com/username/foo-bar/network/members)
-[![GitHub Discussions](https://img.shields.io/github/discussions/username/foo-bar?style=flat-square)](https://github.com/username/foo-bar/discussions)
-[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/username/foo-bar?style=flat-square&color=green)](https://github.com/username/foo-bar/pulls?q=is%3Apr+is%3Aclosed)
-[![GitHub closed issues](https://img.shields.io/github/issues-closed/username/foo-bar?style=flat-square&color=green)](https://github.com/username/foo-bar/issues?q=is%3Aissue+is%3Aclosed)
+[![GitHub Stars](https://img.shields.io/github/stars/victornpb/persist-it?style=flat-square)](https://github.com/victornpb/persist-it/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/victornpb/persist-it?style=flat-square)](https://github.com/victornpb/persist-it/network/members)
+[![GitHub Discussions](https://img.shields.io/github/discussions/victornpb/persist-it?style=flat-square)](https://github.com/victornpb/persist-it/discussions)
+[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/victornpb/persist-it?style=flat-square&color=green)](https://github.com/victornpb/persist-it/pulls?q=is%3Apr+is%3Aclosed)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/victornpb/persist-it?style=flat-square&color=green)](https://github.com/victornpb/persist-it/issues?q=is%3Aissue+is%3Aclosed)
 <!-- endbadge -->
 
 
@@ -27,38 +27,38 @@ Inside your code you can do something like this:
 
 ## Basic usage
 ```js
-import FooBar from 'foo-bar';
+import PersistIt from 'persist-it';
 
 // us
-FooBar();
+PersistIt();
 ```
 
 # Installation
 
-## [NPM](https://npmjs.com/package/foo-bar)
+## [NPM](https://npmjs.com/package/persist-it)
 ```sh
-npm install foo-bar
+npm install persist-it
 ```
 ## [Yarn](https://github.com/yarnpkg/yarn)
 ```sh
-yarn add --dev foo-bar
+yarn add --dev persist-it
 ```
 
 # Adding to your project
 
 #### index.js
 ```js
-import fooBar from 'foo-bar';
+import PersistIt from 'persist-it';
 
 // setup
-import foobar from 'foo-bar';
+import PersistIt from 'persist-it';
 
 fobar.init({options});
 ```
 
 ## Options
 
-foobar(variables, options)
+PersistIt(variables, options)
 
 | Parameters  | Description           | Type    | Default Value |
 |-------------|-----------------------|---------|---------------|
@@ -71,7 +71,7 @@ foobar(variables, options)
 
 ### Options example
 ```js
-import foobar from 'foo-bar';
+import PersistIt from 'persist-it';
 
 fobar.init({
   enable: true,
