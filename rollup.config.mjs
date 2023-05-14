@@ -46,7 +46,7 @@ const config = [
         file: packageJson.exports.import,
         format: 'esm',
         sourcemap: false,
-        exports: 'default',
+        // exports: 'default',
       },
     ],
     plugins: [
@@ -70,13 +70,13 @@ const config = [
         file: packageJson.main,
         format: 'cjs',
         sourcemap,
-        exports: 'default',
+        // exports: 'default',
       },
       {
         file: packageJson.module,
         format: 'esm',
         sourcemap,
-        exports: 'default',
+        // exports: 'default',
       },
     ],
     plugins: [
@@ -114,50 +114,6 @@ const config = [
       banner(license)
     ]
   },
-
-  // Legacy UMD (preset-env)
-  {
-    input: entry,
-    output: [
-      {
-        name: packageJson.globalVar,
-        file: packageJson.unpkg,
-        format: 'umd',
-        sourcemap,
-        exports: 'default',
-      }
-    ],
-    plugins: [
-      bakedEnv(),
-      resolve(),
-      babel({
-        exclude: 'node_modules/**',
-        presets: [
-          [
-            '@babel/env',
-            {
-              modules: 'auto',
-              targets: {
-                browsers: '> 1%, IE 11, not op_mini all, not dead',
-                node: 8
-              },
-              // useBuiltIns: 'usage',
-              // corejs: 3,
-            }
-          ]
-        ],
-        assumptions,
-        plugins: [
-
-        ]
-      }),
-      commonjs(),
-      production && terser({
-        output: {}
-      }),
-      banner(license)
-    ]
-  }
 
 ];
 
