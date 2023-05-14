@@ -1,15 +1,10 @@
-import sum from './utils/sum';
+// General storage
+import PersistIt from './persist-it';
+export { PersistIt };
 
-export default class FooBar {
-  str = 'Hello World';
-  #p = 1;
-  constructor() {
-    console.log('FooBar' + this.str + this.#p);
-  }
-  sum(a, b) {
-    return sum(a, b);
-  }
-  #bar(x) {
-    return x ?? 69;
-  }
-}
+// Storage for app
+import PersistItApp from './persist-it-app';
+export { PersistItApp };
+
+// Singleton instance
+export const persistIt = new PersistItApp();
