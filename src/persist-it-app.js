@@ -11,6 +11,7 @@ export default class PersistItApp extends PersistIt {
     /**
      * Initializes the PersistIt instance with the specified options.
      * @param {object} options - The options for initializing the PersistIt instance.
+     * @param {string} [options.preload=true] - Preloads data from disk to memory during initialization
      * @param {string} [options.directory='user'] - Specifies the mode for selecting the storage location ('user' | 'shared' | 'custom').
      * @param {string} [options.path=''] - The path to use when the directory is set to 'custom'.
      * @param {string} [options.appName] - The custom app name (defaults to package.json name).
@@ -34,6 +35,8 @@ export default class PersistItApp extends PersistIt {
 
             // will attempt to determine appName, appAuthor, appVersion from package.json
             readPackageJson: true,
+
+            preload: true, // preloads data from disk to memory during initialization
 
         }, options);
 
@@ -78,6 +81,6 @@ export default class PersistItApp extends PersistIt {
         else throw new Error('Invalid options.directory! The mode for selecting the storage location should be (user | shared | custom)');
 
         // init the PersistIt instance
-        super.init({ directory: path });
+        super.init({ directory: path, preload: options.preload });
     }
 }

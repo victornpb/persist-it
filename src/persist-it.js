@@ -17,7 +17,7 @@ export default class PersistItDiskStorage {
     if (options) this.init(options);
   }
 
-  init({directory}) {
+  init({ directory, preload }) {
     if (DEBUG) console.log(PREFIX, 'init', directory);
     this.#flushing = false;
     this.directory = directory;
@@ -28,7 +28,8 @@ export default class PersistItDiskStorage {
     fs.mkdirSync(this.directory, { recursive: true });
 
     // preload
-    this.load();
+    if (preload) this.load();
+    
     this.isInit = true;
   }
 
