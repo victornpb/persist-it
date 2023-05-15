@@ -16,13 +16,13 @@ import path from 'path';
  * @private
  */
 function appendNameVersion(dir, appname, version) {
-    if (appname) {
-        dir = path.join(dir, appname);
-        if (version) {
-            dir = path.join(dir, version);
-        }
+  if (appname) {
+    dir = path.join(dir, appname);
+    if (version) {
+      dir = path.join(dir, version);
     }
-    return dir;
+  }
+  return dir;
 }
 
 /**
@@ -32,34 +32,34 @@ function appendNameVersion(dir, appname, version) {
  * [MSDN]{@link http://support.microsoft.com/default.aspx?scid=kb;en-us;310294#XSLTH3194121123120121120120}.
  */
 export const windows = {
-    userDataDir(appname, appauthor, version, roaming) {
-        const dir = roaming ? process.env.APPDATA : process.env.LOCALAPPDATA;
-        return appendNameVersion(dir, appname, version);
-    },
-    userConfigDir(appname, appauthor, version, roaming) {
-        const dir = roaming ? process.env.APPDATA : process.env.LOCALAPPDATA;
-        return appendNameVersion(dir, appname, version);
-    },
-    userCacheDir(appname, appauthor, version) {
-        return appendNameVersion(process.env.LOCALAPPDATA, appname, version);
-    },
-    siteDataDir(appname, appauthor, version, multipath) {
-        const dir = appendNameVersion(process.env.ALLUSERSPROFILE, appname, version);
-        if (multipath) {
-            return [dir];
-        }
-        return dir;
-    },
-    siteConfigDir(appname, appauthor, version, multipath) {
-        const dir = appendNameVersion(process.env.ALLUSERSPROFILE, appname, version);
-        if (multipath) {
-            return [dir];
-        }
-        return dir;
-    },
-    userLogDir(appname, appauthor, version) {
-        return appendNameVersion(process.env.ALLUSERSPROFILE, appname, version);
+  userDataDir(appname, appauthor, version, roaming) {
+    const dir = roaming ? process.env.APPDATA : process.env.LOCALAPPDATA;
+    return appendNameVersion(dir, appname, version);
+  },
+  userConfigDir(appname, appauthor, version, roaming) {
+    const dir = roaming ? process.env.APPDATA : process.env.LOCALAPPDATA;
+    return appendNameVersion(dir, appname, version);
+  },
+  userCacheDir(appname, appauthor, version) {
+    return appendNameVersion(process.env.LOCALAPPDATA, appname, version);
+  },
+  siteDataDir(appname, appauthor, version, multipath) {
+    const dir = appendNameVersion(process.env.ALLUSERSPROFILE, appname, version);
+    if (multipath) {
+      return [dir];
     }
+    return dir;
+  },
+  siteConfigDir(appname, appauthor, version, multipath) {
+    const dir = appendNameVersion(process.env.ALLUSERSPROFILE, appname, version);
+    if (multipath) {
+      return [dir];
+    }
+    return dir;
+  },
+  userLogDir(appname, appauthor, version) {
+    return appendNameVersion(process.env.ALLUSERSPROFILE, appname, version);
+  }
 };
 
 /**
@@ -69,31 +69,31 @@ export const windows = {
  * @link https://developer.apple.com/library/mac/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/FileSystemOverview/FileSystemOverview.html
  */
 export const darwin = {
-    userDataDir(appname, appauthor, version, roaming) {
-        const dir = path.join(process.env.HOME, 'Library/Application Support');
-        return appendNameVersion(dir, appname, version);
-    },
-    userConfigDir(appname, appauthor, version, roaming) {
-        return exports.darwin.userDataDir(appname, appauthor, version, roaming);
-    },
-    userCacheDir(appname, appauthor, version) {
-        const dir = path.join(process.env.HOME, 'Library/Caches');
-        return appendNameVersion(dir, appname, version);
-    },
-    siteDataDir(appname, appauthor, version, multipath) {
-        const dir = appendNameVersion('/Library/Application Support', appname, version);
-        if (multipath) {
-            return [dir];
-        }
-        return dir;
-    },
-    siteConfigDir(appname, appauthor, version, multipath) {
-        return exports.darwin.siteDataDir(appname, appauthor, version, multipath);
-    },
-    userLogDir(appname, appauthor, version) {
-        const dir = path.join(process.env.HOME, 'Library/Logs');
-        return appendNameVersion(dir, appname, version);
+  userDataDir(appname, appauthor, version, roaming) {
+    const dir = path.join(process.env.HOME, 'Library/Application Support');
+    return appendNameVersion(dir, appname, version);
+  },
+  userConfigDir(appname, appauthor, version, roaming) {
+    return exports.darwin.userDataDir(appname, appauthor, version, roaming);
+  },
+  userCacheDir(appname, appauthor, version) {
+    const dir = path.join(process.env.HOME, 'Library/Caches');
+    return appendNameVersion(dir, appname, version);
+  },
+  siteDataDir(appname, appauthor, version, multipath) {
+    const dir = appendNameVersion('/Library/Application Support', appname, version);
+    if (multipath) {
+      return [dir];
     }
+    return dir;
+  },
+  siteConfigDir(appname, appauthor, version, multipath) {
+    return exports.darwin.siteDataDir(appname, appauthor, version, multipath);
+  },
+  userLogDir(appname, appauthor, version) {
+    const dir = path.join(process.env.HOME, 'Library/Logs');
+    return appendNameVersion(dir, appname, version);
+  }
 };
 
 /**
@@ -104,48 +104,48 @@ export const darwin = {
  * @link http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
  */
 export const xdg = {
-    userDataDir(appname, appauthor, version, roaming) {
-        const dir = process.env.XDG_DATA_HOME || path.join(process.env.HOME, '.local/share');
-        return appendNameVersion(dir, appname, version);
-    },
-    userConfigDir(appname, appauthor, version, roaming) {
-        const dir = process.env.XDG_CONFIG_HOME || path.join(process.env.HOME, '.config');
-        return appendNameVersion(dir, appname, version);
-    },
-    userCacheDir(appname, appauthor, version) {
-        const dir = process.env.XDG_CACHE_HOME || path.join(process.env.HOME, '.cache');
-        return appendNameVersion(dir, appname, version);
-    },
-    siteDataDir(appname, appauthor, version, multipath) {
-        const dirstr = process.env.XDG_DATA_DIRS || ['/usr/local/share', '/usr/share'].join(path.delimiter);
+  userDataDir(appname, appauthor, version, roaming) {
+    const dir = process.env.XDG_DATA_HOME || path.join(process.env.HOME, '.local/share');
+    return appendNameVersion(dir, appname, version);
+  },
+  userConfigDir(appname, appauthor, version, roaming) {
+    const dir = process.env.XDG_CONFIG_HOME || path.join(process.env.HOME, '.config');
+    return appendNameVersion(dir, appname, version);
+  },
+  userCacheDir(appname, appauthor, version) {
+    const dir = process.env.XDG_CACHE_HOME || path.join(process.env.HOME, '.cache');
+    return appendNameVersion(dir, appname, version);
+  },
+  siteDataDir(appname, appauthor, version, multipath) {
+    const dirstr = process.env.XDG_DATA_DIRS || ['/usr/local/share', '/usr/share'].join(path.delimiter);
 
-        const dirs = dirstr.split(path.delimiter).map(dir => {
-            return appendNameVersion(dir, appname, version);
-        });
+    const dirs = dirstr.split(path.delimiter).map(dir => {
+      return appendNameVersion(dir, appname, version);
+    });
 
-        if (multipath) {
-            return dirs;
-        } else {
-            return dirs[0];
-        }
-    },
-    siteConfigDir(appname, appauthor, version, multipath) {
-        const dirstr = process.env.XDG_CONFIG_DIRS || '/etc/xdg';
-
-        const dirs = dirstr.split(path.delimiter).map(dir => {
-            return appendNameVersion(dir, appname, version);
-        });
-
-        if (multipath) {
-            return dirs;
-        } else {
-            return dirs[0];
-        }
-    },
-    userLogDir(appname, appauthor, version) {
-        const cacheDir = exports.xdg.userCacheDir(appname, appauthor, version);
-        return path.join(cacheDir, 'log');
+    if (multipath) {
+      return dirs;
+    } else {
+      return dirs[0];
     }
+  },
+  siteConfigDir(appname, appauthor, version, multipath) {
+    const dirstr = process.env.XDG_CONFIG_DIRS || '/etc/xdg';
+
+    const dirs = dirstr.split(path.delimiter).map(dir => {
+      return appendNameVersion(dir, appname, version);
+    });
+
+    if (multipath) {
+      return dirs;
+    } else {
+      return dirs[0];
+    }
+  },
+  userLogDir(appname, appauthor, version) {
+    const cacheDir = exports.xdg.userCacheDir(appname, appauthor, version);
+    return path.join(cacheDir, 'log');
+  }
 };
 
 const platform = os.platform();

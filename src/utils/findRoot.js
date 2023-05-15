@@ -24,7 +24,7 @@ function findRoot (start, check) {
     if (check(dir)) {
       return dir;
     }
-  } catch (e) {}
+  } catch (e) { /* ignore */ }
   return findRoot(start, check);
 }
 

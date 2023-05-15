@@ -1,4 +1,4 @@
-import { DEBUG, PREFIX, setDebug } from './utils/flags';
+import { setDebug } from './utils/flags';
 
 // General storage
 import PersistIt from './persist-it';

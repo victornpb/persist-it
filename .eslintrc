@@ -23,11 +23,13 @@
         "args": "none"
       }
     ],
-    "no-console": "warn",
+    "no-empty": ["warn",{ "allowEmptyCatch": true }],
+    "no-console": "off",
     "no-debugger": "warn",
     "no-unused-expressions": "error",
     "no-trailing-spaces": "error",
-    "no-undef": "error"
+    "no-undef": "error",
+    
 
   }
 }

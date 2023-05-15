@@ -178,11 +178,6 @@ export default class PersistItDiskStorage {
 
 /******************************* helpers *******************************/
 
-function waitNextTick() {
-  // return new Promise(r => setTimeout(r, 500));
-  return new Promise(r => process.nextTick(r));
-}
-
 const FILENAME_PATTERN = /^_([a-zA-Z0-9\-_%. ]+)\.json$/;
 
 function escapeFilename(key) {
@@ -191,7 +186,6 @@ function escapeFilename(key) {
       (match) => '%' + match.charCodeAt(0).toString(16).toUpperCase());
   return `_${name}.json`;
 }
-
 function unescapeFilename(filename) {
   const m = filename.match(FILENAME_PATTERN);
   return decodeURIComponent(m[1]);
@@ -204,11 +198,7 @@ function serialize(obj) {
   return JSON.stringify(obj, null, DEBUG ? '\t' : 0);
 }
 
-
-function encodeFullURIComponent(str) {
-  const encodedStr = encodeURIComponent(str);
-
-  return encodedStr.replace(/([!'()*\-._~])/g, (match) => {
-    return '%' + match.charCodeAt(0).toString(16).toUpperCase();
-  });
+function waitNextTick() {
+  // return new Promise(r => setTimeout(r, 500));
+  return new Promise(r => process.nextTick(r));
 }
