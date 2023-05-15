@@ -29,7 +29,7 @@ export default class PersistItDiskStorage {
 
     // preload
     if (preload) this.load();
-    
+
     this.isInit = true;
   }
 
@@ -97,7 +97,9 @@ export default class PersistItDiskStorage {
       for (const [key, value] of this.writeQueue) {
         if (value === undefined) {
           if (DEBUG) console.log(PREFIX, 'DISK ERASE', key);
-          await fs.promises.unlink(path.join(this.directory, escapeFilename(key)));
+          try {
+            await fs.promises.unlink(path.join(this.directory, escapeFilename(key)));
+          } catch (err) { if (err.code !== 'ENOENT') throw err; }
         } else {
           if (DEBUG) console.log(PREFIX, 'DISK WRITE', key);
           const string = serialize(value);
@@ -160,7 +162,9 @@ export default class PersistItDiskStorage {
     for (const [key, value] of this.writeQueue) {
       if (value === undefined) {
         if (DEBUG) console.log(PREFIX, 'DISK ERASE sync', key);
-        fs.unlinkSync(path.join(this.directory, escapeFilename(key)));
+        try {
+          fs.unlinkSync(path.join(this.directory, escapeFilename(key)));
+        } catch (err) { if (err.code !== 'ENOENT') throw err; }
       } else {
         if (DEBUG) console.log(PREFIX, 'DISK WRITE sync',);
         const string = serialize(value);
@@ -184,7 +188,7 @@ const FILENAME_PATTERN = /^_([a-zA-Z0-9\-_%. ]+)\.json$/;
 function escapeFilename(key) {
   const name = encodeURIComponent(key)
     .replace(/([^a-zA-Z0-9\-%_ ])/g,
-    (match) => '%' + match.charCodeAt(0).toString(16).toUpperCase());
+      (match) => '%' + match.charCodeAt(0).toString(16).toUpperCase());
   return `_${name}.json`;
 }
 
