@@ -3,7 +3,7 @@ const { persistIt, setDebug } = require('../dist/persist-it.cjs.js');
 describe('PersistIt', () => {
   beforeAll(() => {
 
-    setDebug(true);
+    setDebug(false);
 
     persistIt.init({
       directory: 'custom',
@@ -14,10 +14,11 @@ describe('PersistIt', () => {
     // Clear the cache and write queue before each test
     persistIt.cache.clear();
     persistIt.writeQueue.clear();
+    persistIt.deleteSync('test');
   });
 
   afterAll(() => {
-    // persistIt.deleteSync('test');
+    persistIt.deleteSync('test');
   });
 
   it('sets and gets data correctly using set() and get()', async () => {
