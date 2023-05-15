@@ -179,14 +179,17 @@ function waitNextTick() {
   return new Promise(r => process.nextTick(r));
 }
 
+const FILENAME_PATTERN = /^_([a-zA-Z0-9\-_%. ]+)\.json$/;
+
 function escapeFilename(key) {
-  const allowedChars = /[a-zA-Z0-9-_]/;
-  const name =  Array.from(key, char => allowedChars.test(char) ? char : encodeURIComponent(char)).join('');
+  const name = encodeURIComponent(key)
+    .replace(/([^a-zA-Z0-9\-%_ ])/g,
+    (match) => '%' + match.charCodeAt(0).toString(16).toUpperCase());
   return `_${name}.json`;
 }
 
 function unescapeFilename(filename) {
-  const m = filename.match(/^_([a-zA-Z0-9-_%]+)\.json$/);
+  const m = filename.match(FILENAME_PATTERN);
   return decodeURIComponent(m[1]);
 }
 
@@ -194,5 +197,14 @@ function deserialize(string) {
   return JSON.parse(string);
 }
 function serialize(obj) {
-  return JSON.stringify(obj,0,4);
+  return JSON.stringify(obj, null, DEBUG ? '\t' : 0);
+}
+
+
+function encodeFullURIComponent(str) {
+  const encodedStr = encodeURIComponent(str);
+
+  return encodedStr.replace(/([!'()*\-._~])/g, (match) => {
+    return '%' + match.charCodeAt(0).toString(16).toUpperCase();
+  });
 }
