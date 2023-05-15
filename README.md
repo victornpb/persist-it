@@ -99,7 +99,7 @@ console.log(result);
 
 ## Initialization
 
-### `init(options: InitializationOptions): void`
+### init(options: InitializationOptions): void
 
 Initializes the persistence mechanism with the specified options.
 
@@ -111,7 +111,7 @@ Throws an error if the `directory` option is not specified.
 
 ## Asynchronous Methods
 
-### `get(key: string): Promise<any>`
+### get(key: string): Promise<any>
 
 Retrieves the value associated with the specified `key` from the persistence mechanism.
 
@@ -119,7 +119,7 @@ Retrieves the value associated with the specified `key` from the persistence mec
 
 Returns a Promise that resolves to the value associated with the key. If the key is not found, `undefined` is returned.
 
-### `set(key: string, value: any): Promise<void>`
+### set(key: string, value: any): Promise<void>
 
 Sets a `value` for the specified `key` in the persistence mechanism.
 
@@ -128,7 +128,7 @@ Sets a `value` for the specified `key` in the persistence mechanism.
 
 Returns a Promise that resolves once the value is successfully set.
 
-### `delete(key: string): Promise<void>`
+### delete(key: string): Promise<void>
 
 Deletes the key-value pair associated with the specified `key` from the persistence mechanism.
 
@@ -136,7 +136,7 @@ Deletes the key-value pair associated with the specified `key` from the persiste
 
 Returns a Promise that resolves once the key-value pair is successfully deleted.
 
-### `getValue(key: string, path: string, defaultValue?: any): Promise<any>`
+### getValue(key: string, path: string, defaultValue?: any): Promise<any>
 
 Retrieves a nested value from an object stored with the specified `key` in the persistence mechanism.
 
@@ -146,7 +146,7 @@ Retrieves a nested value from an object stored with the specified `key` in the p
 
 Returns a Promise that resolves to the retrieved nested value or the `defaultValue` if the nested value is not found.
 
-### `setValue(key: string, path: string, value: any): Promise<void>`
+### setValue(key: string, path: string, value: any): Promise<void>
 
 Sets a nested `value` within an object stored with the specified `key` in the persistence mechanism.
 
@@ -156,7 +156,7 @@ Sets a nested `value` within an object stored with the specified `key` in the pe
 
 Returns a Promise that resolves once the nested value is successfully set.
 
-### `flush(): Promise<void>`
+### flush(): Promise<void>
 
 Writes any pending changes in the write queue to the persistent storage.
 
@@ -166,7 +166,7 @@ Returns a Promise that resolves once the pending changes are successfully writte
 
 The synchronous methods provide the same functionality as their asynchronous counterparts but operate synchronously without returning Promises. These methods are suitable for cases where synchronous execution is desired.
 
-### `getSync(key: string): any`
+### getSync(key: string): any
 
 Retrieves the value associated with the specified `key` from the persistence mechanism synchronously.
 
@@ -174,20 +174,20 @@ Retrieves the value associated with the specified `key` from the persistence mec
 
 Returns the value associated with the key. If the key is not found, `undefined` is returned.
 
-### `setSync(key: string, value: any): void`
+### setSync(key: string, value: any): void
 
 Sets a `value` for the specified `key` in the persistence mechanism synchronously.
 
 - `key` (string): The key to set.
 - `value` (any): The value to associate with the key.
 
-### `deleteSync(key: string): void`
+### deleteSync(key: string): void
 
 Deletes the key-value pair associated with the specified `key` from the persistence mechanism synchronously.
 
 - `key` (string): The key to delete.
 
-### `getValueSync(key: string, path: string): any`
+### getValueSync(key: string, path: string): any
 
 Retrieves a nested valuefrom an object stored with the specified `key` in the persistence mechanism synchronously.
 
@@ -196,7 +196,7 @@ Retrieves a nested valuefrom an object stored with the specified `key` in the pe
 
 Returns the retrieved nested value or `undefined` if the nested value is not found.
 
-### `setValueSync(key: string, path: string, value: any): void`
+### setValueSync(key: string, path: string, value: any): void
 
 Sets a nested `value` within an object stored with the specified `key` in the persistence mechanism synchronously.
 
@@ -204,7 +204,7 @@ Sets a nested `value` within an object stored with the specified `key` in the pe
 - `path` (string): The path to the nested value within the object.
 - `value` (any): The value to set for the nested path.
 
-### `flushSync(): void`
+### flushSync(): void
 
 Writes any pending changes in the write queue to the persistent storage synchronously.
 
