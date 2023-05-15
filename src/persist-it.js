@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
+import { DEBUG, PREFIX } from './utils/flags';
+
 import getVal from './utils/get';
 import setVal from './utils/set';
-
-import { DEBUG, PREFIX } from './utils/flags';
 
 export default class PersistItDiskStorage {
   #flushing = false;
@@ -17,7 +17,7 @@ export default class PersistItDiskStorage {
     if (options) this.init(options);
   }
 
-  init({ directory, preload }) {
+  init({ directory, preload=true }) {
     if (DEBUG) console.log(PREFIX, 'init', directory);
     this.#flushing = false;
     this.directory = directory;
