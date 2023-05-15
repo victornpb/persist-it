@@ -72,7 +72,7 @@ export default class PersistItDiskStorage {
 
   async delete(key) {
     if (DEBUG) console.log(PREFIX, 'delete', key);
-    this.cache.delete(key);
+    this.cache.set(key, undefined); // do not delete key from cache or a get() on the same tick cache miss and read the to-be-deleted file from disk
     this.writeQueue.set(key, undefined);
     await this.flush();
   }
@@ -125,7 +125,7 @@ export default class PersistItDiskStorage {
       this.cache.set(key, value);
       return value;
     } catch (error) {
-      return null;
+      return undefined;
     }
   }
 
@@ -138,15 +138,15 @@ export default class PersistItDiskStorage {
 
   deleteSync(key) {
     if (DEBUG) console.log(PREFIX, 'delete sync', key);
-    this.cache.delete(key);
-    this.writeQueue.set(key, null);
+    this.cache.set(key, undefined);
+    this.writeQueue.set(key, undefined);
     this.flushSync();
   }
 
   getValueSync(key, path) {
     if (DEBUG) console.log(PREFIX, 'getVal sync', key, path);
     const object = this.getSync(key);
-    return getVal(object, path, null);
+    return getVal(object, path, undefined);
   }
 
   setValueSync(key, path, value) {
@@ -158,7 +158,7 @@ export default class PersistItDiskStorage {
 
   flushSync() {
     for (const [key, value] of this.writeQueue) {
-      if (value === null) {
+      if (value === undefined) {
         if (DEBUG) console.log(PREFIX, 'DISK ERASE sync', key);
         fs.unlinkSync(path.join(this.directory, escapeFilename(key)));
       } else {
@@ -172,7 +172,7 @@ export default class PersistItDiskStorage {
   }
 }
 
-// helpers
+/******************************* helpers *******************************/
 
 function waitNextTick() {
   // return new Promise(r => setTimeout(r, 500));
