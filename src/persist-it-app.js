@@ -6,21 +6,25 @@ import { getPackageSync } from './utils/getPkg';
 import { userDataDir, siteDataDir } from './utils/dirs';
 import PersistIt from './persist-it';
 
+/**
+ * Options for initializing the PersistIt instance.
+ * @typedef {Object} PersistItAppOptions
+ * @property {boolean} [preload=true] - Preloads data from disk to memory during initialization.
+ * @property {string} [directory='user'] - Specifies the mode for selecting the storage location ('user' | 'shared' | 'custom').
+ * @property {string} [path=''] - The path to use when the directory is set to 'custom'.
+ * @property {string} [appName] - The custom app name (defaults to package.json name).
+ * @property {string} [appAuthor] - The custom app author (defaults to package.json author).
+ * @property {(string|boolean)} [appVersion] - The version to append (defaults to package.json major version 'v#'). Set to false to disable versioning.
+ * @property {string} [folder='persist'] - The folder name inside the directory.
+ * @property {boolean} [readPackageJson=true] - Specifies whether to attempt to determine appName, appAuthor, and appVersion from package.json.
+ */
 export default class PersistItApp extends PersistIt {
 
   /**
-     * Initializes the PersistIt instance with the specified options.
-     * @param {object} options - The options for initializing the PersistIt instance.
-     * @param {string} [options.preload=true] - Preloads data from disk to memory during initialization
-     * @param {string} [options.directory='user'] - Specifies the mode for selecting the storage location ('user' | 'shared' | 'custom').
-     * @param {string} [options.path=''] - The path to use when the directory is set to 'custom'.
-     * @param {string} [options.appName] - The custom app name (defaults to package.json name).
-     * @param {string} [options.appAuthor] - The custom app author (defaults to package.json author).
-     * @param {string|boolean} [options.appVersion] - The version to append (defaults to package.json major version 'v#'). Set to false to disable versioning.
-     * @param {string} [options.folder='persist'] - The folder name inside the directory.
-     * @param {boolean} [options.readPackageJson=true] - Specifies whether to attempt to determine appName, appAuthor, and appVersion from package.json.
-     * @throws {Error}
-     */
+   * Initializes the PersistIt instance with the specified options.
+   * @param {PersistItAppOptions} options - The options for initializing the PersistIt instance.
+   * @throws {Error}
+   */
   init(options) {
 
     options = defaults({

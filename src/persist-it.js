@@ -6,6 +6,14 @@ import { DEBUG, PREFIX } from './utils/flags';
 import getVal from './utils/get';
 import setVal from './utils/set';
 
+
+/**
+ * Options for initializing the PersistIt instance.
+ * @typedef {Object} PersistItOptions
+ * @property {string} [directory='user'] - The directory path to read and write files from disk.
+ * @property {boolean} [preload=true] - Preloads data from disk to memory during initialization.
+ */
+
 export default class PersistItDiskStorage {
   /** @type {boolean} Indicates whether a flushing operation is scheduled to occur on the next tick of the event loop */
   #flushing = false;
@@ -20,7 +28,7 @@ export default class PersistItDiskStorage {
 
   /**
    * Creates a new instance of PersistItDiskStorage.
-   * @param {object} options - The options for initializing the storage.
+   * @param {PersistItOptions} options - The options for initializing the storage.
    */
   constructor(options) {
     if (options) this.init(options);
@@ -28,9 +36,7 @@ export default class PersistItDiskStorage {
 
   /**
    * Initializes the disk storage.
-   * @param {object} options - The options for initializing the storage.
-   * @param {string} options.directory - The directory path for storing data files.
-   * @param {boolean} [options.preload=true] - Specifies whether to preload existing data files.
+   * @param {PersistItOptions} options - The options for initializing the storage..
    * @throws {Error} If no directory is specified.
    */
   init({ directory, preload = true }) {

@@ -1,12 +1,15 @@
 /**
- * Access a deep value inside an object
- * Works by passing a path like "foo.bar", also works with nested arrays like "foo[0][1].baz"
- * @author victornpb https://gist.github.com/victornpb/4c7882c1b9d36292308e
- * Unit tests: http://jsfiddle.net/Victornpb/0u1qygrh/
- * @param {any} object Any object
- * @param {string} path Property path to access e.g.: "foo.bar[0].baz.1.a.b"
- * @param {any} [defaultValue=undefined] Optional value to return when property doesn't exist or is undefined
- * @return {any}
+ * Retrieves a deep value inside an object based on the specified path.
+ * @param {any} object - The object from which to retrieve the value.
+ * @param {string} path - The path to the desired property, e.g., "foo.bar[0].baz.1.a.b".
+ * @param {*} [defaultValue=undefined] - Optional value to return when the property doesn't exist or is undefined.
+ * @returns {*} The value at the specified path, or the defaultValue if not found.
+ * @see {@link https://gist.github.com/victornpb/4c7882c1b9d36292308e}
+ * @see {@link http://jsfiddle.net/Victornpb/0u1qygrh/}
+ * @example
+ * const obj = { foo: { bar: [{ baz: { a: { b: 42 } } }] } };
+ * const value = getDeepVal(obj, 'foo.bar[0].baz.a.b');
+ * console.log(value); // Output: 42
  */
 export default function getDeepVal(object, path, defaultValue=undefined) {
   if (typeof object === 'undefined' || object === null) return defaultValue;
