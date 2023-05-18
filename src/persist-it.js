@@ -3,8 +3,8 @@ import path from 'path';
 
 import { DEBUG, PREFIX } from './utils/flags';
 
-import getVal from './utils/get';
-import setVal from './utils/set';
+import getDeepVal from './utils/get';
+import setDeepVal from './utils/set';
 
 
 /**
@@ -105,7 +105,7 @@ export default class PersistItDiskStorage {
     this.writeQueue.set(key, value);
     this.flush();
   }
-  
+
   /**
    * Deletes the value associated with the given key asynchronously.
    * @param {string} key - The key to delete.
@@ -238,7 +238,7 @@ export default class PersistItDiskStorage {
   getValueSync(key, path, defaultValue) {
     if (DEBUG) console.log(PREFIX, 'getVal sync', key, path);
     const object = this.getSync(key);
-    return getVal(object, path, defaultValue);
+    return getDeepVal(object, path, defaultValue);
   }
   /**
    * Sets the value at the specified path within the object associated with the given key synchronously.
@@ -252,7 +252,7 @@ export default class PersistItDiskStorage {
   setValueSync(key, path, value) {
     if (DEBUG) console.log(PREFIX, 'setVal sync', key, path, value);
     const object = this.getSync(key) || {};
-    setVal(object, path, value);
+    setDeepVal(object, path, value);
     this.setSync(key, object);
   }
 
